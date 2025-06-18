@@ -6,7 +6,7 @@ const { scanApi, analyzeApiSpec } = require('../lib/apisec');
 jest.mock('swagger-parser', () => {
   return {
     validate: jest.fn().mockResolvedValue({
-      info: { title: 'Test API', version: '1.0.0' },
+      info: { title: 'Test API', version: '1.0.1' },
       paths: {
         '/users': {
           get: { responses: { 200: { description: 'OK' } } },
@@ -27,7 +27,7 @@ describe('API Security Module Tests', () => {
 
     expect(result).toBeDefined();
     expect(result.title).toBe('Test API');
-    expect(result.version).toBe('1.0.0');
+    expect(result.version).toBe('1.0.1');
     expect(result.endpoints).toBeDefined();
     expect(result.endpoints.length).toBeGreaterThan(0);
   });

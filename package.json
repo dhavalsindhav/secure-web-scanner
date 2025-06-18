@@ -1,5 +1,5 @@
 {  "name": "secure-web-scanner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A comprehensive tool to scan websites for security vulnerabilities, technology stack details, infrastructure insights, and client-side security issues",
   "main": "lib/index.js",
   "browser": "browser-bundle.js",

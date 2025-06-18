@@ -1,4 +1,4 @@
-# secure-web-scanner v1.0.0
+# secure-web-scanner v1.0.1
 
 A comprehensive command-line tool to scan websites for security information, vulnerabilities, and technology stack details, now enhanced with AI-powered analysis, cloud security scanning, API security testing, authentication analysis, and interactive dashboards.
 
