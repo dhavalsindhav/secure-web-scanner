@@ -1,0 +1,75 @@
+{
+  "name": "secure-web-scanner",
+  "version": "1.0.0",
+  "description": "A comprehensive tool to scan websites for security vulnerabilities, technology stack details, infrastructure insights, and client-side security issues",
+  "main": "lib/index.js",
+  "bin": {
+    "secure-web-scanner": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "start": "node ./bin/cli.js",
+    "lint": "eslint .",
+    "build": "webpack --mode production",
+    "dev": "node --watch ./bin/cli.js",
+    "docs": "jsdoc -c jsdoc.json",
+    "scan": "node ./bin/cli.js scan",
+    "dashboard": "node ./bin/cli.js report --interactive"
+  },
+  "keywords": [
+    "security",
+    "scanner",
+    "ssl",
+    "headers",
+    "tech-stack",
+    "vulnerability",
+    "whois",
+    "csp",
+    "port-scanning",
+    "security-headers",
+    "puppeteer",
+    "browser-automation",
+    "client-side-security",
+    "dom-security",
+    "xss-detection"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "chalk": "4.1.2",
+    "cheerio": "^1.1.0",
+    "commander": "^12.0.0",
+    "cookie": "^1.0.2",
+    "dns": "^0.2.2",
+    "dotenv": "^16.4.1",
+    "ora": "^5.4.1",
+    "psl": "^1.15.0",
+    "semver": "^7.7.2",
+    "ssl-checker": "^2.0.9",
+    "util": "^0.12.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "jsdoc": "^4.0.2",
+    "nodemon": "^3.0.3",
+    "supertest": "^6.3.4",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhavalsindhav/secure-web-scanner"
+  },
+  "homepage": "https://github.com/dhavalsindhav/secure-web-scanner#readme",
+  "bugs": {
+    "url": "https://github.com/dhavalsindhav/secure-web-scanner/issues"
+  }
+}

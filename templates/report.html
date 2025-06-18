@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{REPORT_TITLE}}</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      header {
+        background-color: #f8f9fa;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        margin: 0;
+        color: #2c3e50;
+      }
+      .report-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        color: #666;
+      }
+      .summary-section {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .summary-metric {
+        text-align: center;
+        flex: 1;
+      }
+      .metric-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .critical {
+        color: #d63031;
+      }
+      .high {
+        color: #e17055;
+      }
+      .medium {
+        color: #fdcb6e;
+      }
+      .low {
+        color: #00b894;
+      }
+      .info {
+        color: #0984e3;
+      }
+      .details-section {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .issues-list {
+        margin-top: 20px;
+      }
+      .issue {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .issue-critical {
+        background-color: #ffebee;
+      }
+      .issue-high {
+        background-color: #fff3e0;
+      }
+      .issue-medium {
+        background-color: #fffde7;
+      }
+      .issue-low {
+        background-color: #e8f5e9;
+      }
+      .issue-info {
+        background-color: #e3f2fd;
+      }
+      .issue-severity {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .issue-description {
+        margin-bottom: 5px;
+      }
+      .issue-recommendation {
+        font-style: italic;
+        color: #555;
+      }
+      .tech-stack-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      .tech-item {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        min-width: 150px;
+      }
+      .tech-name {
+        font-weight: bold;
+      }
+      .tech-version {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .tech-category {
+        font-size: 0.8rem;
+        color: #888;
+        margin-top: 5px;
+      }
+      .status-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+      }
+      .status-success {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+      .status-error {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{{REPORT_TITLE}}</h1>
+      <div class="report-meta">
+        <div>Target: {{SCAN_TARGET}}</div>
+        <div>Date: {{SCAN_DATE}}</div>
+      </div>
+    </header>
+
+    <section class="summary-section">
+      <h2>Summary</h2>
+      {{SUMMARY}}
+    </section>
+
+    <section class="details">
+      <h2>Details</h2>
+      {{DETAILS}}
+    </section>
+
+    <script>
+      const reportData = "{{REPORT_DATA}}";
+    </script>
+  </body>
+</html>
