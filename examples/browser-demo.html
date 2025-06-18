@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Web Scanner - Browser Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input[type="url"] {
+      width: 70%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    pre {
+      background: #f8f8f8;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    .result-section {
+      margin-top: 20px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .badge-success {
+      background: #27ae60;
+      color: white;
+    }
+    .badge-warning {
+      background: #f39c12;
+      color: white;
+    }
+    .badge-danger {
+      background: #e74c3c;
+      color: white;
+    }
+    #loading {
+      display: none;
+      margin-top: 20px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>Secure Web Scanner - Browser Demo</h1>
+  <p>This demo showcases the browser-compatible features of the secure-web-scanner package.</p>
+  
+  <div class="form-group">
+    <input type="url" id="urlInput" placeholder="Enter website URL (e.g., https://example.com)" value="https://example.com">
+    <button id="scanButton">Scan Website</button>
+  </div>
+  
+  <div id="loading">Scanning website... This may take a few moments.</div>
+  
+  <div id="results" class="result-section" style="display:none;">
+    <h2>Scan Results</h2>
+    
+    <div id="headersSection">
+      <h3>HTTP Headers</h3>
+      <div id="headersResults"></div>
+    </div>
+    
+    <div id="techStackSection">
+      <h3>Technology Stack</h3>
+      <div id="techStackResults"></div>
+    </div>
+    
+    <div id="cspSection">
+      <h3>Content Security Policy</h3>
+      <div id="cspResults"></div>
+    </div>
+    
+    <div id="cookiesSection">
+      <h3>Cookies</h3>
+      <div id="cookiesResults"></div>
+    </div>
+    
+    <div id="rawResultsSection">
+      <h3>Raw JSON Results</h3>
+      <pre id="rawResults"></pre>
+    </div>
+  </div>
+  
+  <script src="../dist/secure-web-scanner.browser.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const scanButton = document.getElementById('scanButton');
+      const urlInput = document.getElementById('urlInput');
+      const loadingDiv = document.getElementById('loading');
+      const resultsDiv = document.getElementById('results');
+      const rawResultsDiv = document.getElementById('rawResults');
+      const headersResultsDiv = document.getElementById('headersResults');
+      const techStackResultsDiv = document.getElementById('techStackResults');
+      const cspResultsDiv = document.getElementById('cspResults');
+      const cookiesResultsDiv = document.getElementById('cookiesResults');
+      
+      scanButton.addEventListener('click', async function() {
+        const url = urlInput.value.trim();
+        
+        if (!url) {
+          alert('Please enter a valid URL');
+          return;
+        }
+        
+        // Show loading
+        loadingDiv.style.display = 'block';
+        resultsDiv.style.display = 'none';
+        
+        try {
+          // Use the browser-compatible scan function
+          const results = await secureWebScanner.browserScan(url);
+          
+          // Display raw results
+          rawResultsDiv.textContent = JSON.stringify(results, null, 2);
+          
+          // Display headers results
+          if (results.headers && !results.headers.error) {
+            let headerHtml = '<ul>';
+            for (const [key, value] of Object.entries(results.headers)) {
+              headerHtml += `<li><strong>${key}:</strong> ${value}</li>`;
+            }
+            headerHtml += '</ul>';
+            
+            if (results.headerAnalysis) {
+              headerHtml += '<h4>Security Header Analysis</h4>';
+              headerHtml += '<ul>';
+              for (const item of results.headerAnalysis.findings) {
+                const badgeClass = item.severity === 'high' ? 'badge-danger' : 
+                                 item.severity === 'medium' ? 'badge-warning' : 'badge-success';
+                
+                headerHtml += `
+                  <li>
+                    <span class="badge ${badgeClass}">${item.severity.toUpperCase()}</span>
+                    <strong>${item.header}:</strong> ${item.description}
+                  </li>`;
+              }
+              headerHtml += '</ul>';
+            }
+            
+            headersResultsDiv.innerHTML = headerHtml;
+          } else {
+            headersResultsDiv.innerHTML = '<p>Could not retrieve header information.</p>';
+          }
+          
+          // Display tech stack results
+          if (results.techStack && !results.techStack.error) {
+            let techHtml = '<ul>';
+            for (const tech of results.techStack.technologies) {
+              techHtml += `<li><strong>${tech.name}</strong>`;
+              if (tech.version) {
+                techHtml += ` (version ${tech.version})`;
+              }
+              if (tech.categories && tech.categories.length > 0) {
+                techHtml += ` - Categories: ${tech.categories.join(', ')}`;
+              }
+              techHtml += '</li>';
+            }
+            techHtml += '</ul>';
+            techStackResultsDiv.innerHTML = techHtml;
+          } else {
+            techStackResultsDiv.innerHTML = '<p>Could not detect technology stack.</p>';
+          }
+          
+          // Display CSP results
+          if (results.csp && !results.csp.error) {
+            let cspHtml = '<pre>';
+            cspHtml += JSON.stringify(results.csp, null, 2);
+            cspHtml += '</pre>';
+            
+            if (results.cspAnalysis) {
+              cspHtml += '<h4>CSP Analysis</h4>';
+              cspHtml += '<ul>';
+              for (const finding of results.cspAnalysis.findings) {
+                const badgeClass = finding.severity === 'high' ? 'badge-danger' : 
+                                 finding.severity === 'medium' ? 'badge-warning' : 'badge-success';
+                
+                cspHtml += `
+                  <li>
+                    <span class="badge ${badgeClass}">${finding.severity.toUpperCase()}</span>
+                    <strong>${finding.directive || 'General'}:</strong> ${finding.description}
+                  </li>`;
+              }
+              cspHtml += '</ul>';
+            }
+            
+            cspResultsDiv.innerHTML = cspHtml;
+          } else {
+            cspResultsDiv.innerHTML = '<p>No Content Security Policy detected.</p>';
+          }
+          
+          // Display cookies results
+          if (results.cookies && !results.cookies.error && results.cookies.cookies) {
+            let cookiesHtml = '<ul>';
+            for (const cookie of results.cookies.cookies) {
+              cookiesHtml += `
+                <li>
+                  <strong>${cookie.name}</strong>
+                  <ul>
+                    <li>Domain: ${cookie.domain || 'Not specified'}</li>
+                    <li>Secure: ${cookie.secure ? 'Yes' : 'No'}</li>
+                    <li>HttpOnly: ${cookie.httpOnly ? 'Yes' : 'No'}</li>
+                    <li>SameSite: ${cookie.sameSite || 'Not specified'}</li>
+                    <li>Expires: ${cookie.expires || 'Session'}</li>
+                  </ul>
+                </li>`;
+            }
+            cookiesHtml += '</ul>';
+            cookiesResultsDiv.innerHTML = cookiesHtml;
+          } else {
+            cookiesResultsDiv.innerHTML = '<p>No cookies detected or error retrieving cookie information.</p>';
+          }
+          
+          // Show results
+          loadingDiv.style.display = 'none';
+          resultsDiv.style.display = 'block';
+        } catch (error) {
+          console.error('Scan error:', error);
+          loadingDiv.style.display = 'none';
+          alert(`Scan failed: ${error.message}`);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

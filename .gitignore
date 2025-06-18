@@ -55,6 +55,7 @@ out/
 .cache/
 .parcel-cache/
 .webpack/
+secure-web-scanner.browser.js
 
 # Test coverage and reports
 coverage/
