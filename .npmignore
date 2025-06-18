@@ -1,0 +1,101 @@
+# Source control files
+.git/
+.github/
+.gitignore
+.gitattributes
+
+# Development files
+*.ts
+!*.d.ts
+tsconfig.json
+tslint.json
+.eslintrc
+.eslintrc.*
+.eslintignore
+.prettierrc
+.prettierrc.*
+.prettierignore
+.editorconfig
+
+# Build and config files not needed in the package
+webpack.config.js
+rollup.config.js
+babel.config.js
+.babelrc
+.babelrc.*
+
+# Test files
+tests/
+__tests__/
+test/
+*.test.js
+*.spec.js
+jest.config.js
+jest.setup.js
+coverage/
+.nyc_output/
+*.lcov
+
+# Documentation and examples
+docs/
+doc/
+examples/
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+CHANGELOG.md
+ADVANCED_FEATURES.md
+BROWSER_FEATURES.md
+
+# Project specific files that don't need to be in the package
+screenshots/
+scan-artifacts/
+*.png
+*.pdf
+puppeteer-demo.js
+test-puppeteer.sh
+*.sh
+*.ps1
+comprehensive-scan.sh
+comprehensive-scan.ps1
+full-scan.sh
+run.sh
+subdomain-scan.js
+
+# Development environment files
+.vscode/
+.idea/
+*.sublime-*
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env*
+*.pem
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Temp directories and files
+.tmp/
+tmp/
+temp/
+.cache/
+.parcel-cache/
+
+# Personal notes or development files
+TODO.md
+NOTES.md
+*.todo
+
+# GitHub specific files
+.github/
