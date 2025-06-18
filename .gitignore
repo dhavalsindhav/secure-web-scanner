@@ -1,0 +1,86 @@
+# Node.js related
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+.npm/
+.yarn/
+.yarn-integrity
+.pnp.*
+
+# Puppeteer outputs and artifacts
+screenshots/
+*.png
+scan-artifacts/
+*.pdf
+browser-data/
+
+# IDE and editor files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+.idea/
+*.sublime-*
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swp
+*~
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables and secrets
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env*.local
+*.pem
+
+# Build and dist folders
+dist/
+build/
+out/
+.cache/
+.parcel-cache/
+.webpack/
+
+# Test coverage and reports
+coverage/
+.nyc_output/
+reports/
+junit.xml
+jest-*.json
+
+# Temporary files
+.tmp/
+tmp/
+temp/
+.temp/
+
+# Project specific
+scan-results/
+reports/
+generated/
+docs/
+
+# Dependency cruft
+.eslintcache
+.stylelintcache
+.rollup.cache/
+
+# Debug and profile files
+chrome-profiler-events*.json
+*.cpuprofile
+*.heapsnapshot
